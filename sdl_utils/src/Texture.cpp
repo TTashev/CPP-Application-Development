@@ -90,8 +90,6 @@ int32_t Texture::createTextureFromText(const std::string text, const Color& colo
 		return EXIT_FAILURE;
 	}
 
-	std::cout << "text texture: " << texture << std::endl;
-
 	return EXIT_SUCCESS;
 }
 

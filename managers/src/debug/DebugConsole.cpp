@@ -20,6 +20,9 @@ int32_t DebugConsole::init(int64_t p_maxFrames, int32_t p_fontId)
 	textPos.y += 40;
 	_debugTexts[ACTIVE_TIMER_IDX].create("0", p_fontId, Colors::RED, textPos);
 
+	textPos.y += 40;
+	_debugTexts[ACTIVE_WIDGETS_IDX].create("0", p_fontId, Colors::RED, textPos);
+
 	return EXIT_SUCCESS;
 }
 

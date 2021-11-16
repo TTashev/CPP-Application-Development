@@ -44,6 +44,7 @@ private:
 private:
 	//forbid the copy/move constructors and assignment operators
 	SDL_Renderer *_sdlRenderer = nullptr;
+	int32_t _activeWidgets {0};
 };
 
 #endif /* SDL_UTILS_RENDERER_H_ */

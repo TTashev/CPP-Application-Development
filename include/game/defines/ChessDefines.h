@@ -34,7 +34,17 @@ namespace Defines
 		LEFT,
 		DIRECTION_COUNT
 	};
+
+	enum PawnDefines
+	{
+	  WHITE_PLAYER_START_PAWN_ROW = 6,
+	  WHITE_PLAYER_END_PAWN_ROW = 0,
+
+	  BLACK_PLAYER_START_PAWN_ROW = 1,
+	  BLACK_PLAYER_END_PAWN_ROW = 7
+	};
 }
+
 
 enum class PieceType : uint8_t
 {

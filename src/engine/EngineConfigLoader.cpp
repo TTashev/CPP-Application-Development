@@ -26,7 +26,7 @@ constexpr auto MOVE_TILES_IMG_SIZE = 98;
 
 constexpr auto ANGELINE_VINTAGE_40_FONT_SIZE = 40;
 
-constexpr auto MAX_FPS = 30;
+constexpr auto MAX_FPS = 60;
 
 static void populateTextContainerConfig(TextContainerCfg& p_cfg)
 {

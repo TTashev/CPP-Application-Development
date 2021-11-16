@@ -14,12 +14,12 @@
 #include <vector>
 #include <array>
 
-struct GameBoardProxy;
+struct GameBoardInterface;
 
 class PieceHandler
 {
 public:
-	int32_t init(GameBoardProxy* p_gameBoardProxy, int32_t p_whitePiecesRsrcId,
+	int32_t init(GameBoardInterface* p_gameBoardProxy, int32_t p_whitePiecesRsrcId,
 													int32_t p_blackPiecesRsrcId,
 													int32_t p_unfinishedPieceFontId);
 	void draw();
@@ -33,7 +33,7 @@ private:
 private:
 	std::array<ChessPiece::PlayerPieces, Defines::PLAYERS_COUNT> _pieces;
 
-	GameBoardProxy* _gameBoardProxy;
+	GameBoardInterface* _gameBoardInterface;
 
 	int32_t _selectedPieceId = 0;
 	int32_t _selectedPiecePlayerId = 0;

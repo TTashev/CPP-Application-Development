@@ -32,7 +32,7 @@ add_executable(${PROJECT_NAME}
 								${_INC_DIR}/engine/config/EngineConfig.h
 								${_INC_DIR}/engine/EngineConfigLoader.h
 								${_INC_DIR}/game/Game.h
-								${_INC_DIR}/game/GameBoardProxy.h
+								${_INC_DIR}/game/GameBoardInterface.h
 								${_INC_DIR}/game/config/GameCfg.h
 								${_INC_DIR}/game/board/GameBoard.h
 								${_INC_DIR}/game/board/MoveSelector.h

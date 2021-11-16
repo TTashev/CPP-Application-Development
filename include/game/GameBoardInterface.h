@@ -5,18 +5,18 @@
  *      Author: tomislav
  */
 
-#ifndef INCLUDE_GAME_GAMEBOARDPROXY_H_
-#define INCLUDE_GAME_GAMEBOARDPROXY_H_
+#ifndef INCLUDE_GAME_GAMEBOARDINTERFACE_H_
+#define INCLUDE_GAME_GAMEBOARDINTERFACE_H_
 
 #include <vector>
 #include "game/defines/ChessStructs.h"
 
 struct BoardPos;
 
-class GameBoardProxy
+class GameBoardInterface
 {
 public:
-	virtual ~GameBoardProxy() = default;
+	virtual ~GameBoardInterface() = default;
 
 	virtual void onPieceGrabbed(const BoardPos& p_boardPos,
 					const std::vector<TileData>& p_moveTiles) = 0;
@@ -26,4 +26,4 @@ public:
 };
 
 
-#endif /* INCLUDE_GAME_GAMEBOARDPROXY_H_ */
+#endif /* INCLUDE_GAME_GAMEBOARDINTERFACE_H_ */

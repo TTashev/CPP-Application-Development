@@ -8,20 +8,20 @@
 #include "game/pieces/PieceHandler.h"
 #include "sdl_utils/InputEvent.h"
 #include "game/utils/BoardUtils.h"
-#include "game/GameBoardProxy.h"
 #include <iostream>
+#include "game/GameBoardInterface.h"
 
 
-int32_t PieceHandler::init(GameBoardProxy* p_gameBoardProxy, int32_t p_whitePiecesRsrcId,
+int32_t PieceHandler::init(GameBoardInterface* p_gameBoardInterface, int32_t p_whitePiecesRsrcId,
 															 int32_t p_blackPiecesRsrcId,
 															 int32_t p_unfinishedPieceFontId)
 {
-	if(nullptr == p_gameBoardProxy)
+	if(nullptr == p_gameBoardInterface)
 	{
 		std::cerr << "Error, nullptr provided for gameBoardProxy" << std::endl;
 		return EXIT_FAILURE;
 	}
-	_gameBoardProxy = p_gameBoardProxy;
+	_gameBoardInterface = p_gameBoardInterface;
 
 	if(EXIT_SUCCESS != PieceHandlerPopulator::populatePieceHandler
 				(p_whitePiecesRsrcId, p_blackPiecesRsrcId, p_unfinishedPieceFontId, _pieces))
@@ -62,14 +62,13 @@ void PieceHandler::handlePieceGrabEvent(const InputEvent &e)
 
 	if(!BoardUtils::isInsideBoard(e.pos))
 	{
-		_gameBoardProxy->onPieceUngrabbed();
 		return;
 	}
 
 	const BoardPos boardPos = BoardUtils::getBoardPos(e.pos);
-	if(!_gameBoardProxy->isMoveAllowed(boardPos))
+	if(!_gameBoardInterface->isMoveAllowed(boardPos))
 	{
-		_gameBoardProxy->onPieceUngrabbed();
+		_gameBoardInterface->onPieceUngrabbed();
 		return;
 	}
 
@@ -98,7 +97,7 @@ void PieceHandler::handlePieceReleaseEvent(const InputEvent &e)
 				_isPieceGrabbed = true;
 
 				const auto moveTile = _pieces[_selectedPiecePlayerId][_selectedPieceId]->getMoveTiles(_pieces);
-				_gameBoardProxy->onPieceGrabbed(BoardUtils::getBoardPos(e.pos), moveTile);
+				_gameBoardInterface->onPieceGrabbed(BoardUtils::getBoardPos(e.pos), moveTile);
 				return;
 			}
 
@@ -110,15 +109,15 @@ void PieceHandler::handlePieceReleaseEvent(const InputEvent &e)
 
 void PieceHandler::doMovePiece(const BoardPos& boardPos)
 {
-	_pieces[_selectedPiecePlayerId][_selectedPieceId]->setBoardPos(boardPos);
-	const auto opponentId =
-			BoardUtils::getOpponentId(_pieces[_selectedPiecePlayerId][_selectedPieceId]->getPlayerId());
+	  _pieces[_selectedPiecePlayerId][_selectedPieceId]->setBoardPos(boardPos);
+	  _gameBoardInterface->onPieceUngrabbed();
 
-	int32_t collisionIdx = -1;
-	if(BoardUtils::doCollideWithPiece(boardPos, _pieces[opponentId], collisionIdx))
-	{
-		_pieces[collisionIdx].erase(_pieces[opponentId].begin() + collisionIdx);
-	}
-
-	_gameBoardProxy->onPieceUngrabbed();
+	  const int32_t enemyPlayerId = BoardUtils::getOpponentId(_selectedPiecePlayerId);
+	  int32_t relativePieceId = -1;
+	  if (BoardUtils::doCollideWithPiece(boardPos, _pieces[enemyPlayerId],
+			  	  	  	  	  	  	  	  	  	  	  	  relativePieceId))
+	  {
+	    //erase the piece
+	    _pieces[enemyPlayerId].erase(_pieces[enemyPlayerId].begin() + relativePieceId);
+	  }
 }

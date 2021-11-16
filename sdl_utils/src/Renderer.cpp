@@ -64,6 +64,7 @@ void Renderer::clearScreen()
 void Renderer::finishFrame()
 {
 	SDL_RenderPresent(_sdlRenderer);
+	_activeWidgets = 0;
 }
 
 void Renderer::renderTexture(SDL_Texture *texture, const DrawParams& drawParams)
@@ -81,7 +82,9 @@ void Renderer::renderTexture(SDL_Texture *texture, const DrawParams& drawParams)
 		std::cerr << "Error, received unsupported WidgeType: "
 				<< static_cast<int32_t>(drawParams.widgetType) << "for rsrcID: "
 				<< drawParams.rsrcId << std::endl;
+		_activeWidgets--;
 	}
+	_activeWidgets++;
 }
 
 void Renderer::setWidgetBlendMode(SDL_Texture* texture,

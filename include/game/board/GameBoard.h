@@ -9,12 +9,13 @@
 #define INCLUDE_GAME_BOARD_GAMEBOARD_H_
 
 #include <cstdint>
+
+#include "game/GameBoardInterface.h"
 #include "managers/drawing/Image.h"
 #include "managers/time/TimerClient.h"
-#include "game/GameBoardProxy.h"
 #include "game/board/MoveSelector.h"
 
-class GameBoard : public GameBoardProxy, public TimerClient
+class GameBoard : public GameBoardInterface, public TimerClient
 {
 public:
 	int32_t init(int32_t p_boardRsrcId, int32_t p_targetRsrcId,
