@@ -6,7 +6,7 @@ in order on get it running on Ubuntu/Linux you have to install cmake
 
 sudo apt install cmake
 
-after that you need to create build folder and run cmake from build:
+after that you need to create build folder and run cmake from it:
 
 cmake ..
 
